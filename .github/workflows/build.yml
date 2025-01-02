@@ -1,0 +1,27 @@
+name: build
+
+on: [push, pull_request]
+
+jobs:
+  build-linux-i386:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: build linux-i386
+      run: |
+        scripts/build-ubuntu-i386.sh
+
+  build-linux-amd64:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: build linux-amd64
+      run: |
+        scripts/build-ubuntu-amd64.sh      
+    - name: linux
+      uses: actions/upload-artifact@v3
+      with:
+        name: linux-amd64
+        path: install
